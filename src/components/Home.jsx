@@ -7,13 +7,9 @@ import Weather from "./views/Weather";
 import UserTable from "./views/UserTable";
 
 const Home = () => {
-  const userData = [
-    { username: "User1", addedDate: "2022-02-10", status: "Active" },
-    { username: "User2", addedDate: "2022-02-15", status: "Inactive" },
-    // Add more user data as needed
-  ];
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await logOut();
@@ -29,10 +25,17 @@ const Home = () => {
 
   const searchLocation = (e) => {
     if (e.key === "Enter") {
-      axios.get(url).then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      });
+      axios
+        .get(url)
+        .then((response) => {
+          setData(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching weather data:", error);
+          alert("City not found. Please enter a valid location.");
+        });
+
       setLocation("");
     }
   };
@@ -41,24 +44,6 @@ const Home = () => {
     <>
       <div className="w-full h-full relative">
         <div className="text-center p-4">
-          {/* <nav className="bg-transparent py-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link to="/" className="text-black text-lg font-semibold">
-            Home
-          </Link>
-          <div className="flex space-x-4">
-            <Link to="/table" className="text-black">
-              Table
-            </Link>
-            <button
-              className="text-black cursor-pointer"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </nav> */}
           <input
             type="text"
             className="py-3 px-6 w-[-700px] text-lg rounded-3xl border border-gray-200 placeholder:text-gray-400 focus:outline-none bg-white-600/100 shadow-md"
@@ -72,6 +57,14 @@ const Home = () => {
       </div>
       <div>
         <UserTable />
+        <center>
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </center>
       </div>
     </>
   );

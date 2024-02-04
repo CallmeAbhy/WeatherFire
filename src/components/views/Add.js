@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../../firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 const Add = () => {
   const [formData, setFormData] = useState({
     name: "",
-    recentDate: "",
+    recentDate: new Date().toISOString().split("T")[0],
     status: "active",
   });
 
@@ -25,7 +25,7 @@ const Add = () => {
       // Reset form data after successful submission
       setFormData({
         name: "",
-        recentDate: "",
+        recentDate: new Date().toISOString().split("T")[0],
         status: "active",
       });
     } catch (error) {
@@ -61,6 +61,7 @@ const Add = () => {
         name="recentDate"
         value={formData.recentDate}
         onChange={handleInputChange}
+        disabled
       />
       <div className="mb-4">
         <label className="block text-gray-700 mb-2">Status:</label>
@@ -94,7 +95,7 @@ const Add = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Submit
+          Add
         </button>
 
         <button

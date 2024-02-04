@@ -15,13 +15,29 @@ import Row from "./Row";
 import Add from "./Add";
 const UserTable = () => {
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+  const [editingEntry, setEditingEntry] = useState(null);
   const [entry, setEntry] = useState([]);
   const handleAddClick = () => {
     // Set showUpdatePopup to true when edit button is clicked
     setShowUpdatePopup(true);
   };
   const handlePopupClose = () => {
+    // Close the update popup and reset the editing entry
     setShowUpdatePopup(false);
+    setEditingEntry(null);
+  };
+
+  const handleEdit = (id) => {
+    // // Find the entry with the given id
+    // const selected = entry.find((e) => e.id === id);
+    // if (selected) {
+    //   setSelectedEntry(selected);
+    //   setShowUpdatePopup(true);
+    // }
+    // Set the entry to be edited in the state
+    setEditingEntry(entry);
+    // Open the update popup
+    setShowUpdatePopup(true);
   };
 
   const handleUpdateSubmit = (e) => {

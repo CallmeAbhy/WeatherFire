@@ -65,11 +65,14 @@ const Login = () => {
           Sign In with Google
         </button> */}
 
-        <GoogleButton
-          className="g-btn "
-          type="dark"
-          onClick={handleGoogleSignIn}
-        />
+        <div className="flex items-center justify-center">
+          <GoogleButton
+            className="g-btn "
+            type="dark"
+            onClick={handleGoogleSignIn}
+          />
+        </div>
+
         <p className="text-center">
           Don't have an account? <Link to="/register">Sign Up</Link>
         </p>

@@ -46,12 +46,6 @@ const Register = () => {
           </button>
         </form>
 
-        <button
-          className="w-full p-2 bg-red-500 text-white rounded"
-          type="submit"
-        >
-          Sign Up with Google
-        </button>
         <p className="text-center">
           Already have an account?<Link to="/">Sign In</Link>
         </p>
